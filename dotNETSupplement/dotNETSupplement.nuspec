@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ch3plusStudio.dotNETSupplement</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Anthony, Harry, Anson</authors>
+    <owners>ch3plus Studio</owners>
+    <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/ch3plus-studio/dotNETSupplement</projectUrl>
+    <iconUrl>https://github.com/ch3plus-studio/dotNETSupplement/raw/master/dotNETSupplement.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET Supplement is a daily supplement to .Net developers.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Library</tags>
+  </metadata>
+</package>
