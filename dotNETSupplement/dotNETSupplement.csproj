@@ -42,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Collections\Generic\KeyValuePairMutable.cs" />
     <Compile Include="Core\Collections\ObjectModel\ObservableCollection3Plus.cs" />
     <Compile Include="Core\EventArgs.cs" />
+    <Compile Include="IO\FileModificationInfoSnapshot.cs" />
+    <Compile Include="Threading\Tasks\PeriodicTaskExecutor.cs" />
+    <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="MVVM\Convertors\EnumValueToEnumNameConverter.cs" />
     <Compile Include="Net\ServerConnectivityMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

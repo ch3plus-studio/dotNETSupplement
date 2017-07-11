@@ -7,8 +7,9 @@ using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using ch3plusStudio.dotNETSupplement.Net;
+using System.Diagnostics;
 
-namespace dotNETSupplementUnitTest
+namespace ch3plusStudio.dotNETSupplementUnitTest
 {
     namespace Net
     {
@@ -18,7 +19,7 @@ namespace dotNETSupplementUnitTest
             [TestMethod]
             public void Connectable()
             {
-                var mon = new ServerConnectivityMonitor(Dns.GetHostAddresses("github.com").Select(x => new IPEndPoint(x, 80)).ToList());
+                var mon = new ServerConnectivityMonitor(Dns.GetHostAddresses("github.com").Select(x => new IPEndPoint(x, 80)).ToList(), TimeSpan.FromMilliseconds(1000));
                 var waitHandle = new AutoResetEvent(false);
                 var status = ServerConnectivityMonitor.Connectivity.Undefined;
 
@@ -27,17 +28,33 @@ namespace dotNETSupplementUnitTest
                     waitHandle.Set();
                 };
 
-                mon.StartMonitor();
+                mon.Start();
                 waitHandle.WaitOne();
-                mon.StopMonitor();
+                mon.Stop();
+                waitHandle.Dispose();
 
                 Assert.AreEqual(status, ServerConnectivityMonitor.Connectivity.Connectable);
             }
 
             [TestMethod]
+            public void ConnectableInLongRun()
+            {
+                var mon = new ServerConnectivityMonitor(Dns.GetHostAddresses("github.com").Select(x => new IPEndPoint(x, 80)).ToList(), TimeSpan.FromMilliseconds(1000));
+                var status = ServerConnectivityMonitor.Connectivity.Undefined;
+
+                mon.OnConnectivityChanged += (sender, evntargs) => status = evntargs.EventData;
+
+                mon.Start();
+                Thread.Sleep(TimeSpan.FromSeconds(20));
+                mon.Stop();
+
+                Assert.AreEqual(status, ServerConnectivityMonitor.Connectivity.Connectable); // Test result is good if no exception under long run, and get expected result
+            }
+
+            [TestMethod]
             public void Unconnectable()
             {
-                var mon = new ServerConnectivityMonitor(new List<IPEndPoint>{(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 65534))});
+                var mon = new ServerConnectivityMonitor(new List<IPEndPoint> { (new IPEndPoint(IPAddress.Parse("127.0.0.1"), 65534)) }, TimeSpan.FromMilliseconds(1000));
                 var waitHandle = new AutoResetEvent(false);
                 var status = ServerConnectivityMonitor.Connectivity.Undefined;
 
@@ -47,9 +64,10 @@ namespace dotNETSupplementUnitTest
                     waitHandle.Set();
                 };
 
-                mon.StartMonitor();
+                mon.Start();
                 waitHandle.WaitOne();
-                mon.StopMonitor();
+                mon.Stop();
+                waitHandle.Dispose();
 
                 Assert.AreEqual(status, ServerConnectivityMonitor.Connectivity.Unconnectable);
             }
@@ -57,7 +75,7 @@ namespace dotNETSupplementUnitTest
             [TestMethod]
             public void UnconnectableByTimeout()
             {
-                var mon = new ServerConnectivityMonitor(Dns.GetHostAddresses("github.com").Select(x => new IPEndPoint(x, 65534)).ToList());
+                var mon = new ServerConnectivityMonitor(Dns.GetHostAddresses("github.com").Select(x => new IPEndPoint(x, 65534)).ToList(), TimeSpan.FromMilliseconds(1000));
                 var waitHandle = new AutoResetEvent(false);
                 var status = ServerConnectivityMonitor.Connectivity.Undefined;
 
@@ -67,9 +85,10 @@ namespace dotNETSupplementUnitTest
                     waitHandle.Set();
                 };
 
-                mon.StartMonitor();
+                mon.Start();
                 waitHandle.WaitOne();
-                mon.StopMonitor();
+                mon.Stop();
+                waitHandle.Dispose();
 
                 Assert.AreEqual(status, ServerConnectivityMonitor.Connectivity.Unconnectable);
             }

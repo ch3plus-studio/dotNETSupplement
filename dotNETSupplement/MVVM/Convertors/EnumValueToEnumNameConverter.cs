@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Windows.Markup;
 using System.Windows.Data;
 
-namespace dotNETSupplement.MVVM.Convertors
+namespace ch3plusStudio.dotNETSupplement.MVVM.Convertors
 {
     public class EnumValueToEnumNameConverter : MarkupExtension, IValueConverter
     {

@@ -54,8 +54,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\Collections\ObjectModel\ObservableCollection3PlusTest.cs" />
+    <Compile Include="IO\FileChangesInfoSnapshotTest.cs" />
+    <Compile Include="IO\FileWatcherTest.cs" />
     <Compile Include="Net\ServerConnectivityMonitorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\Tasks\PeriodicTaskExecutorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dotNETSupplement\dotNETSupplement.csproj">

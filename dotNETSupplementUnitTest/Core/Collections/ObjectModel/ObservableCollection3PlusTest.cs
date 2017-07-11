@@ -5,7 +5,7 @@ using ch3plusStudio.dotNETSupplement.Core.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
-namespace dotNETSupplementUnitTest.Core.Collections.ObjectModel
+namespace ch3plusStudio.dotNETSupplementUnitTest.Core.Collections.ObjectModel
 {
     [TestClass]
     public class ObservableCollection3PlusTest
